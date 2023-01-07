@@ -3,7 +3,7 @@ import path from "path"
 const __dirname = path.resolve();
 
 import step from './api/step.js';
-// import get_ipinfo from './api/ipdb.js';
+import get_ipinfo from './api/ipdb.js';
 
 // 创建服务器
 const app = Express()
