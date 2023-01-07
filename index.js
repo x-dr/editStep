@@ -21,9 +21,9 @@ app.use(Express.urlencoded({ extended: false }))
 // app.post('/create', create)
 // app.get('/:slug', redirect)
 
-app.get('/ip', (req, res) => {
+app.get('/ip',async (req, res) => {
     // console.log(req.get('x-forwarded-for'));
-    const ipinfo = get_ipinfo(req.get('x-forwarded-for'))
+    const ipinfo =await get_ipinfo(req.get('x-forwarded-for'))
     res.send(ipinfo)
 })
 
