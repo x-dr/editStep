@@ -9,7 +9,7 @@ const __dirname = path.resolve();
 
 const getip6 = async (ip6) => {
 // async function getip(ip6) {
-    const lookup = await maxmind.open('GeoLite2-City.mmdb');
+    const lookup = await maxmind.open('./api/GeoLite2-City.mmdb');
     const location = lookup.get(ip6);
     const addr = location.city.names['zh-CN']+location.country.names['zh-CN']
     // console.log(addr);
@@ -17,7 +17,7 @@ const getip6 = async (ip6) => {
 }
 const getip4 = async (ip4) => {
   // async function getip(ip6) {
-      const lookup = await maxmind.open('qqwry.mmdb');
+      const lookup = await maxmind.open('./api/qqwry.mmdb');
       const location = lookup.get(ip4);
       // const addr = location.city.names['zh-CN']+location.country.names['zh-CN']
       // console.log(addr);
