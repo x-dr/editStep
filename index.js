@@ -3,7 +3,7 @@ import path from "path"
 const __dirname = path.resolve();
 
 import step from './api/step.js';
-import get_ipinfo from './api/ipdb.js';
+// import get_ipinfo from './api/ipdb.js';
 
 // 创建服务器
 const app = Express()
@@ -22,9 +22,9 @@ app.use(Express.urlencoded({ extended: false }))
 // app.get('/:slug', redirect)
 
 app.get('/ip', (req, res) => {
-    // console.log(req);
-    ipinfo = get_ipinfo(req.get('x-forwarded-for'))
-    res.send(ipinfo)
+    // console.log(req.get('x-forwarded-for'));
+    // ipinfo = get_ipinfo(req.get('x-forwarded-for'))
+    res.send(req.get('x-forwarded-for'))
 })
 
 
