@@ -1,0 +1,8 @@
+{
+    "name": "Start on Heroku: Node.js",
+    "description": "zeep life (小米运动) 刷步数，支持邮箱/手机账号",
+    "repository": "https://github.com/x-dr/editStep",
+    "logo": "https://raw.githubusercontent.com/x-dr/editStep/main/public/favicon.png",
+    "keywords": ["node", "express", "heroku"],
+    "image": "heroku/nodejs"
+  }

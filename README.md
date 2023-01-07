@@ -28,3 +28,6 @@ docker run -dit \
   gindex/editstep:latest
 
 ```
+### 部署到heroku
+
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
