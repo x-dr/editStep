@@ -37,12 +37,12 @@ const get_ipinfo = async (ip) => {
   if (reg.test(ip)) {
     const addr = await getip4(ip);
     console.log(addr);
-    return res.send(addr)
+    return addr
     // return res.send(ip+'\n'+addr)
   }
   if (reg6.test(ip)) {
     const addr = await getip6(ip);
-    return res.send(ip+'\n'+addr)
+    return {ip ,addr}
   }
 
 

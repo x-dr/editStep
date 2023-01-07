@@ -23,8 +23,8 @@ app.use(Express.urlencoded({ extended: false }))
 
 app.get('/ip', (req, res) => {
     // console.log(req.get('x-forwarded-for'));
-    // ipinfo = get_ipinfo(req.get('x-forwarded-for'))
-    res.send(req.get('x-forwarded-for'))
+    const ipinfo = get_ipinfo(req.get('x-forwarded-for'))
+    res.send(ipinfo)
 })
 
 
