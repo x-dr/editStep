@@ -16,3 +16,14 @@ curl  'https://step.451024.xyz/step?u=账号&p=密码&s=步数'
 ### 部署到Vercel
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/x-dr/editStep)
+
+### Docker 部署
+
+```shell
+docker run -dit \
+  -p 3001:8080 \
+  --name editstep \
+  --restart unless-stopped \
+  gindex/editstep:latest
+
+```
