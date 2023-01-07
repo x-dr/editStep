@@ -164,7 +164,7 @@ const set_Step = async (username, password, step) => {
                 'userid': userid,
                 'device_type': '0',
                 'last_source': '24',
-                'last_sync_data_time': Math.round(t / 1000),
+                // 'last_sync_data_time': Math.round(t / 1000),
                 'last_deviceid': 'DA932FFFFE8816E7',
             },
             method: "POST",
