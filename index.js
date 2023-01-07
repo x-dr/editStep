@@ -3,7 +3,7 @@ import path from "path"
 const __dirname = path.resolve();
 
 import step from './api/step.js';
-import get_ipinfo from './api/ipdb.js';
+
 
 // 创建服务器
 const app = Express()
@@ -12,20 +12,14 @@ app.set('x-powered-by', false)
 app.use(Express.json())
 // 配置中间件
 app.use(Express.urlencoded({ extended: false }))
-// app.use(Express.static(__dirname+'/public'));
+app.use(Express.static(__dirname+'/public'));
+
 
 
 
 // 配置路由
-// app.get('/price/:purl', hisprice)
-// app.post('/create', create)
-// app.get('/:slug', redirect)
 
-app.get('/ip',async (req, res) => {
-    // console.log(req.get('x-forwarded-for'));
-    const ipinfo =await get_ipinfo(req.get('x-forwarded-for'))
-    res.send(ipinfo)
-})
+
 
 
 app.get('/', (req, res) => {

@@ -141,7 +141,7 @@ const getAppToken = async (login_token) => {
 
 const set_Step = async (username, password, step) => {
     let loginresult = await login(username, password)
-    console.log(loginresult);
+    // console.log(loginresult);
     if (loginresult && !loginresult.code) {
         const { login_token, userid } = loginresult
         const t = await getTimestamp()
@@ -170,15 +170,16 @@ const set_Step = async (username, password, step) => {
         })
         const msg = postData.data.message
         if (msg === 'success') {
-            return '修改成功'
+            // { code: 'ok', message: "修改成功" }
+            return { code: '1', message: "修改成功" }
         } else {
-            return "修改失败， 请重试！"
+            return { code: '0', message: "修改失败， 请重试！" }
         }
 
     } else if(loginresult.code == 12) {
-        return "修改失败，ip已被小米限制访问了，请联系作者"
+        return { code: '0', message: "修改失败，ip已被小米限制访问了，请联系作者" }
     }else {
-        return "登录失败， 请检查账号或密码是否正确"
+        return { code: '0', message: "登录失败， 请检查账号或密码是否正确" }
     }
 }
 

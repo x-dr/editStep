@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon  index.js"
   },
   "repository": {
     "type": "git",
@@ -25,5 +25,8 @@
     "maxmind": "^4.3.8",
     "moment": "^2.29.4",
     "qqwry-lite": "^0.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="./favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>修改步数</title>
+  <style>
+    :root {
+      --color-primary: #5c7cfa;
+      --color-primary-dark: #4263eb;
+      --color-primary-alpha: #5c7cfa50;
+
+      --body-color: #495057;
+      --body-bg: #f8f9fa;
+
+      --border-color: #dee2e6;
+    }
+
+    body {
+      max-width: 30rem;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      color: var(--body-color);
+      background: var(--body-bg);
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      text-rendering: optimizelegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: color .3s;
+    }
+
+    a:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+
+    h1 {
+      font-size: 5rem;
+      font-weight: 300;
+      text-align: center;
+      opacity: .2;
+    }
+
+    main[x-cloak] {
+      opacity: 0;
+    }
+
+    main:not([x-cloak]) {
+      opacity: 1;
+      transition: opacity .3s;
+    }
+
+    input {
+      -webkit-appearance: none;
+      appearance: none;
+      display: block;
+      width: 100%;
+      padding: .5rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: .25rem;
+      box-sizing: border-box;
+      color: #33404d;
+      line-height: inherit;
+      font-size: 1rem;
+      transition: border .3s, box-shadow .3s;
+    }
+
+    input:focus {
+      box-shadow: 0 0 0 .25rem var(--color-primary-alpha);
+      border-color: var(--color-primary);
+      outline: 0;
+    }
+
+    details {
+      margin: 1rem 0 2rem;
+      border: 1px solid var(--border-color);
+      border-radius: .25rem;
+      transition: background .3s;
+    }
+
+    details[open] {
+      background: #fff;
+    }
+
+    details summary {
+      padding: .5rem 1rem;
+      font-weight: 500;
+      user-select: none;
+      cursor: pointer;
+      opacity: .8;
+      outline: 0;
+    }
+
+    details div {
+      padding: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    details small {
+      margin: 0;
+      font-size: .875rem;
+      line-height: 2;
+    }
+
+    button {
+      appearance: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 5rem;
+      padding: .5rem .75rem;
+      border: 1px solid var(--color-primary);
+      border-radius: .25rem;
+      background: var(--color-primary);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: inherit;
+      cursor: pointer;
+      user-select: none;
+      transition: border .3s, background .3s, ;
+    }
+
+    button:hover {
+      border-color: var(--color-primary-dark);
+      background: var(--color-primary-dark);
+    }
+
+    button:focus {
+      box-shadow: 0 0 0 .25rem var(--color-primary-alpha);
+      border-color: var(--color-primary);
+      outline: 0;
+    }
+
+    button:disabled {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    button.loading::before {
+      content: '';
+      display: inline-block;
+      margin-right: .5rem;
+      border: 2px solid #fff;
+      border-top-color: transparent;
+      border-bottom-color: transparent;
+      border-radius: 50%;
+      width: .75rem;
+      height: .75rem;
+      animation: rotate .5s linear infinite;
+    }
+
+    #tip {
+      padding: 1rem;
+      border-top: 1px solid var(--border-color);
+      opacity: .5;
+    }
+
+    footer {
+      padding: 1rem;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      opacity: .5;
+    }
+
+    footer i {
+      font-style: normal;
+      color: #ff8787;
+    }
+
+    .success,
+    .error {
+      margin-bottom: 1rem;
+      padding: .5rem 1rem;
+      border-radius: .25rem;
+      color: #fff;
+      text-align: center;
+      opacity: 1;
+      transition: opacity .3s;
+    }
+
+    .success {
+      border: 1px solid #12b886;
+      background: #38d9a9;
+    }
+
+    .error {
+      border: 1px solid #fa5252;
+      background: #ff8787;
+    }
+
+    @keyframes rotate {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>修改步数</h1>
+  </header>
+  <main x-data="app" x-cloak>
+    <p x-show.transition.opacity="alert" :class="alert?.type" x-text="alert?.message"></p>
+    <input placeholder="输入账号..." x-model="u" /></p>
+    <input placeholder="输入密码..." x-model="p" />
+    <details>
+      <summary>自定义步数</summary>
+      <div>
+        <input placeholder="输入要修改的步数..." x-model="s" />
+        <small>默认是随机修改12000-22000。</small>
+      </div>
+    </details>
+    <button :class="{ loading }" :disabled="loading" @click="submit($refs)">修改</button>
+  </main>
+  <div id="tip">
+    下载「Zeep Life 」（原小米运动），下载完成后，输入自己的手机号或邮箱进行注册，记住密码。</p>
+    登录后进入到「我的」- 「第三方接入」，「点击微信」按照流程扫码授权绑定至微信。（也可绑定支付宝或QQ）</p>
+    使用注册的「Zeep Life 」账号密码，输入自定义步数提交即可成功！</p>
+  </div>
+
+  <footer>
+     <i><a href="https://www.runoob.com">By 小东</a>
+     </i>
+  </footer>
+  <script src="alpine.js"></script>
+  <script>
+    const app = {
+      p: '',
+      u: '',
+      s: '',
+      alert: null,
+      loading: false,
+      isValidated() {
+        var reg = /^1[3456789]\d{9}$/;
+        var reg2 = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+        if (reg.test(this.u)) {
+          return false
+
+        } else if (reg2.test(this.u)) {
+          return false
+        }
+        else {
+          return true
+        }
+      },
+      submit($refs) {
+        if (!this.u) {
+          this.alert = { type: 'error', message: '输入小米运动app账号...' }
+          return
+        }
+
+        if (!this.p) {
+          this.alert = { type: 'error', message: '输入密码...' }
+          return
+        }
+
+        if (this.isValidated()) {
+          this.alert = { type: 'error', message: '非法账号格式' }
+          return
+        }
+
+        this.alert = null
+        this.loading = true
+
+        const body = { u: this.u, p: this.p}
+        if (this.s) body.s = this.s
+
+        fetch('/step', {
+          method: 'post',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(body)
+        })
+          .then(res => res.json())
+          .then(res => {
+            this.loading = false
+            // console.log(res);
+            if (res.code == 1) {
+              this.alert = { type: 'success', message: res.message }
+              return
+            }
+            if (res.code == 0) {
+              this.alert = { type: 'error', message: res.message }
+              return
+            }
+
+          })
+          .catch(e => {
+            this.alert = { type: 'error', message: e.message }
+            this.loading = false
+          })
+      }
+    }
+  </script>
+</body>
+
+</html>
