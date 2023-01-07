@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <link rel="icon" href="./favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- <script defer src="https://unpkg.com/alpinejs@3.10.5/dist/cdn.min.js"></script> -->
   <title>修改步数</title>
   <style>
     :root {
@@ -225,26 +226,44 @@
         <small>默认是随机修改12000-22000。</small>
       </div>
     </details>
-    <button :class="{ loading }" :disabled="loading" @click="submit($refs)">修改</button>
+    <button :class="{ loading }" :disabled="loading"  @click="submit($refs)">修改</button> </p>
   </main>
   <div id="tip">
-    下载「Zeep Life 」（原小米运动），下载完成后，输入自己的手机号或邮箱进行注册，记住密码。</p>
+    下载<a href="https://www.coolapk.com/apk/com.xiaomi.hm.health" >「Zeep Life 」（原小米运动）</a>，下载完成后，输入自己的手机号或邮箱进行注册，记住密码。</p>
     登录后进入到「我的」- 「第三方接入」，「点击微信」按照流程扫码授权绑定至微信。（也可绑定支付宝或QQ）</p>
     使用注册的「Zeep Life 」账号密码，输入自定义步数提交即可成功！</p>
   </div>
 
-  <footer>
-     <i><a href="https://github.com/x-dr/editStep">By 小东</a>
-     </i>
+
+   <footer>
+    <p x-data="ip" x-init="$nextTick(() => {getipinfo()})" x-show.transition.opacity="ipinfo" x-text="ipinfo"></p>
+    <i><a href="https://github.com/x-dr/editStep">By 小东</a>
+    </i>
   </footer>
   <script src="alpine.js"></script>
   <script>
+    const ip={
+      ipinfo:'',
+      getipinfo() {
+        fetch('https://ip.tryxd.cn')
+          .then(res => res.json())
+          .then(res => {
+            this.ipinfo = "你的ip: "+ res.ip + ' ' + res.addr + ' ' + res.info
+
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      }
+    }
+
     const app = {
       p: '',
       u: '',
       s: '',
       alert: null,
       loading: false,
+      ipinfo: '',
       isValidated() {
         var reg = /^1[3456789]\d{9}$/;
         var reg2 = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
@@ -259,6 +278,7 @@
         }
       },
       submit($refs) {
+        console.log(this);
         if (!this.u) {
           this.alert = { type: 'error', message: '输入小米运动app账号...' }
           return
@@ -277,7 +297,7 @@
         this.alert = null
         this.loading = true
 
-        const body = { u: this.u, p: this.p}
+        const body = { u: this.u, p: this.p }
         if (this.s) body.s = this.s
 
         fetch('/step', {
@@ -304,6 +324,8 @@
             this.loading = false
           })
       }
+    
+
     }
   </script>
 </body>
