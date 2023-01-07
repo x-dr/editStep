@@ -1,4 +1,5 @@
 # zeep life (小米运动) 刷步数，支持邮箱/手机账号
+ip容易被限制，建议自建
 
 ### api
 
@@ -21,7 +22,7 @@ curl  'https://step.451024.xyz/step?u=账号&p=密码&s=步数'
 
 ```shell
 docker run -dit \
-  -p 3001:8080 \
+  -p 3051:8080 \
   --name editstep \
   --restart unless-stopped \
   gindex/editstep:latest
